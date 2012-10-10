@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
 
   # Specify the location from where the source should be retreived.
   # s.source       = { :git => "http://EXAMPLE/UKSyntaxColoredTextViewController.git", :tag => "0.6.0" }
-  s.source       = { :git => "~/Code/UKSyntaxColoredTextViewController", :tag => "0.6.0" }
+  s.source       = { :git => "https://github.com/ryanmaxwell/UKSyntaxColoredTextDocument.git" }
 
   # If this Pod runs only on iOS or OS X, then specify the platform and
   # the deployment target.
@@ -58,6 +58,7 @@ Pod::Spec.new do |s|
   # Also allows the use of the FileList class like `source_files does.
   #
   s.resource  = "SyntaxColorDefaults.plist"
+  s.resource  = "SyntaxDefinition.plist"
   s.resources = "Syntax Definitions/*.plist"
 
   # A list of paths to preserve after installing the Pod.
