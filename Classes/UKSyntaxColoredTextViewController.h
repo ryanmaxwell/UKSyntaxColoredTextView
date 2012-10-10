@@ -25,72 +25,19 @@
 //	   distribution.
 //
 
-// -----------------------------------------------------------------------------
-//	Headers:
-// -----------------------------------------------------------------------------
-
 #import <Cocoa/Cocoa.h>
 
-
-// -----------------------------------------------------------------------------
-//	Constants:
-// -----------------------------------------------------------------------------
-
-#define TD_USER_DEFINED_IDENTIFIERS			@"SyntaxColoring:UserIdentifiers"		// Key in user defaults holding user-defined identifiers to colorize.
-#define TD_SYNTAX_COLORING_MODE_ATTR		@"UKTextDocumentSyntaxColoringMode"		// Anything we colorize gets this attribute. The value is an NSString holding the component name.
-
-
-@class UKSyntaxColoredTextViewController;
-
-@protocol UKSyntaxColoredTextViewDelegate <NSObject>
-
-@optional
+/*
+ Key in user defaults holding user-defined identifiers to colorize.
+ */
+#define TD_USER_DEFINED_IDENTIFIERS			@"SyntaxColoring:UserIdentifiers"
 
 /*
- Show your progress indicator.
+ Anything we colorize gets this attribute. The value is an NSString holding the component name.
  */
-- (void)textViewControllerWillStartSyntaxRecoloring:(UKSyntaxColoredTextViewController *)sender;
+#define TD_SYNTAX_COLORING_MODE_ATTR		@"UKTextDocumentSyntaxColoringMode"
 
-/*
- Make sure it gets redrawn.
- */
-- (void)textViewControllerProgressedWhileSyntaxRecoloring:(UKSyntaxColoredTextViewController *)sender;
-
-/*
- Hide your progress indicator.
- */
-- (void)textViewControllerDidFinishSyntaxRecoloring:(UKSyntaxColoredTextViewController *)sender;
-
-/*
- Update any selection status display.
- */
-- (void)selectionInTextViewController:(UKSyntaxColoredTextViewController *)sender
-              changedToStartCharacter:(NSUInteger)startCharInLine endCharacter:(NSUInteger)endCharInLine
-                               inLine:(NSUInteger)lineInDoc startCharacterInDocument:(NSUInteger)startCharInDoc
-               endCharacterInDocument:(NSUInteger)endCharInDoc;
-
-/*
- Won't get called if you override syntaxDefinitionDictionaryForTextViewController:.
- */
-- (NSString *)syntaxDefinitionFilenameForTextViewController:(UKSyntaxColoredTextViewController *)sender;
-
-- (NSDictionary *)syntaxDefinitionDictionaryForTextViewController:(UKSyntaxColoredTextViewController *)sender;
-
-/*
- If you can parse your code & provide a list of identifiers the user uses, you can provide this method to tell the editor about them.
- */
-- (NSArray *)userIdentifiersForKeywordComponentName:(NSString *)inModeName;
-
-/*
- If you don't just want a color, provide an NSAttributedString attributes dictionary here.
- */
-- (NSDictionary *)textAttributesForComponentName:(NSString *)inModeName color:(NSColor *)inColor;
-
-@end
-
-// -----------------------------------------------------------------------------
-//	Class:
-// -----------------------------------------------------------------------------
+@protocol UKSyntaxColoredTextViewDelegate;
 
 @interface UKSyntaxColoredTextViewController : NSViewController <NSTextViewDelegate>
 
@@ -138,5 +85,51 @@
  Selected text range when document is opened.
  */
 - (NSRange)defaultSelectedRange;
+
+@end
+
+@protocol UKSyntaxColoredTextViewDelegate <NSObject>
+
+@optional
+
+/*
+ Show your progress indicator.
+ */
+- (void)textViewControllerWillStartSyntaxRecoloring:(UKSyntaxColoredTextViewController *)sender;
+
+/*
+ Make sure it gets redrawn.
+ */
+- (void)textViewControllerProgressedWhileSyntaxRecoloring:(UKSyntaxColoredTextViewController *)sender;
+
+/*
+ Hide your progress indicator.
+ */
+- (void)textViewControllerDidFinishSyntaxRecoloring:(UKSyntaxColoredTextViewController *)sender;
+
+/*
+ Update any selection status display.
+ */
+- (void)selectionInTextViewController:(UKSyntaxColoredTextViewController *)sender
+              changedToStartCharacter:(NSUInteger)startCharInLine endCharacter:(NSUInteger)endCharInLine
+                               inLine:(NSUInteger)lineInDoc startCharacterInDocument:(NSUInteger)startCharInDoc
+               endCharacterInDocument:(NSUInteger)endCharInDoc;
+
+/*
+ Won't get called if you override syntaxDefinitionDictionaryForTextViewController:.
+ */
+- (NSString *)syntaxDefinitionFilenameForTextViewController:(UKSyntaxColoredTextViewController *)sender;
+
+- (NSDictionary *)syntaxDefinitionDictionaryForTextViewController:(UKSyntaxColoredTextViewController *)sender;
+
+/*
+ If you can parse your code & provide a list of identifiers the user uses, you can provide this method to tell the editor about them.
+ */
+- (NSArray *)userIdentifiersForKeywordComponentName:(NSString *)inModeName;
+
+/*
+ If you don't just want a color, provide an NSAttributedString attributes dictionary here.
+ */
+- (NSDictionary *)textAttributesForComponentName:(NSString *)inModeName color:(NSColor *)inColor;
 
 @end
