@@ -57,9 +57,7 @@ Pod::Spec.new do |s|
   #
   # Also allows the use of the FileList class like `source_files does.
   #
-  s.resource  = "SyntaxColorDefaults.plist"
-  s.resource  = "SyntaxDefinition.plist"
-  s.resources = "Syntax Definitions/*.plist"
+  s.resources = "SyntaxDefinition.plist", "SyntaxColorDefaults.plist", "Syntax Definitions/*.plist"
 
   # A list of paths to preserve after installing the Pod.
   # CocoaPods cleans by default any file that is not used.
