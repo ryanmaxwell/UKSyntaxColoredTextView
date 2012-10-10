@@ -45,82 +45,98 @@
 @protocol UKSyntaxColoredTextViewDelegate <NSObject>
 
 @optional
--(void)	textViewControllerWillStartSyntaxRecoloring: (UKSyntaxColoredTextViewController*)sender;		// Show your progress indicator.
--(void)	textViewControllerProgressedWhileSyntaxRecoloring: (UKSyntaxColoredTextViewController*)sender;	// Make sure it gets redrawn.
--(void)	textViewControllerDidFinishSyntaxRecoloring: (UKSyntaxColoredTextViewController*)sender;		// Hide your progress indicator.
 
--(void)	selectionInTextViewController: (UKSyntaxColoredTextViewController*)sender						// Update any selection status display.
-			changedToStartCharacter: (NSUInteger)startCharInLine endCharacter: (NSUInteger)endCharInLine
-			inLine: (NSUInteger)lineInDoc startCharacterInDocument: (NSUInteger)startCharInDoc
-			endCharacterInDocument: (NSUInteger)endCharInDoc;
+/*
+ Show your progress indicator.
+ */
+- (void)textViewControllerWillStartSyntaxRecoloring:(UKSyntaxColoredTextViewController *)sender;
 
--(NSString*)		syntaxDefinitionFilenameForTextViewController: (UKSyntaxColoredTextViewController*)sender;	// Won't get called if you override syntaxDefinitionDictionaryForTextViewController:.
--(NSDictionary*)	syntaxDefinitionDictionaryForTextViewController: (UKSyntaxColoredTextViewController*)sender;
--(NSArray*)			userIdentifiersForKeywordComponentName: (NSString*)inModeName;	// If you can parse your code & provide a list of identifiers the user uses, you can provide this method to tell the editor about them.
--(NSDictionary*)	textAttributesForComponentName: (NSString*)inModeName color: (NSColor*)inColor;	// If you don't just want a color, provide an NSAttributedString attributes dictionary here.
+/*
+ Make sure it gets redrawn.
+ */
+- (void)textViewControllerProgressedWhileSyntaxRecoloring:(UKSyntaxColoredTextViewController *)sender;
+
+/*
+ Hide your progress indicator.
+ */
+- (void)textViewControllerDidFinishSyntaxRecoloring:(UKSyntaxColoredTextViewController *)sender;
+
+/*
+ Update any selection status display.
+ */
+- (void)selectionInTextViewController:(UKSyntaxColoredTextViewController *)sender
+              changedToStartCharacter:(NSUInteger)startCharInLine endCharacter:(NSUInteger)endCharInLine
+                               inLine:(NSUInteger)lineInDoc startCharacterInDocument:(NSUInteger)startCharInDoc
+               endCharacterInDocument:(NSUInteger)endCharInDoc;
+
+/*
+ Won't get called if you override syntaxDefinitionDictionaryForTextViewController:.
+ */
+- (NSString *)syntaxDefinitionFilenameForTextViewController:(UKSyntaxColoredTextViewController *)sender;
+
+- (NSDictionary *)syntaxDefinitionDictionaryForTextViewController:(UKSyntaxColoredTextViewController *)sender;
+
+/*
+ If you can parse your code & provide a list of identifiers the user uses, you can provide this method to tell the editor about them.
+ */
+- (NSArray *)userIdentifiersForKeywordComponentName:(NSString *)inModeName;
+
+/*
+ If you don't just want a color, provide an NSAttributedString attributes dictionary here.
+ */
+- (NSDictionary *)textAttributesForComponentName:(NSString *)inModeName color:(NSColor *)inColor;
 
 @end
-
-
 
 // -----------------------------------------------------------------------------
 //	Class:
 // -----------------------------------------------------------------------------
 
 @interface UKSyntaxColoredTextViewController : NSViewController <NSTextViewDelegate>
-{
-	BOOL								autoSyntaxColoring;		// Automatically refresh syntax coloring when text is changed?
-	BOOL								maintainIndentation;	// Keep new lines indented at same depth as their predecessor?
-	id									reserved;
-	BOOL								syntaxColoringBusy;		// Set while recolorRange is busy, so we don't recursively call recolorRange.
-	NSRange								affectedCharRange;
-	NSString*							replacementString;
-	id<UKSyntaxColoredTextViewDelegate>	delegate;
-}
 
-+(void) 	makeSurePrefsAreInited;		// No need to call this.
+- (IBAction)recolorCompleteFile:(id)sender;
+- (IBAction)toggleAutoSyntaxColoring:(id)sender;
+- (IBAction)toggleMaintainIndentation:(id)sender;
+- (IBAction)indentSelection:(id)sender;
+- (IBAction)unindentSelection:(id)sender;
+- (IBAction)toggleCommentForSelection:(id)sender;
 
--(void)		setDelegate: (id<UKSyntaxColoredTextViewDelegate>)delegate;
--(id)		delegate;
+@property (assign, nonatomic) id<UKSyntaxColoredTextViewDelegate>	delegate;
 
--(IBAction)	recolorCompleteFile: (id)sender;
--(IBAction)	toggleAutoSyntaxColoring: (id)sender;
--(IBAction)	toggleMaintainIndentation: (id)sender;
--(IBAction) indentSelection: (id)sender;
--(IBAction) unindentSelection: (id)sender;
--(IBAction)	toggleCommentForSelection: (id)sender;
+/* 
+ Automatically refresh syntax coloring when text is changed
+ */
+@property (assign, nonatomic) BOOL autoSyntaxColoring;
 
--(void)		setAutoSyntaxColoring: (BOOL)state;
--(BOOL)		autoSyntaxColoring;
+/* 
+ Keep new lines indented at same depth as their predecessor?
+ */
+@property (assign, nonatomic) BOOL maintainIndentation;
 
--(void)		setMaintainIndentation: (BOOL)state;
--(BOOL)		maintainIndentation;
-
--(void)		goToLine: (int)lineNum;
--(void)		goToCharacter: (int)charNum;
--(void)		goToRangeFrom: (int)startCh toChar: (int)endCh;
+- (void)goToLine:(NSInteger)lineNum;
+- (void)goToCharacter:(NSInteger)charNum;
+- (void)goToRangeFrom:(NSInteger)startCh toChar:(NSInteger)endCh;
 
 // Override any of the following in one of your subclasses to customize this object further:
--(NSString*)		syntaxDefinitionFilename;   // Defaults to "SyntaxDefinition.plist" in the app bundle's "Resources" directory.
--(NSDictionary*)	syntaxDefinitionDictionary; // Defaults to loading plist from -syntaxDefinitionFilename.
 
--(NSDictionary*)	defaultTextAttributes;		// Style attributes dictionary for an NSAttributedString.
--(NSRange)			defaultSelectedRange;		// Selected text range when document is opened.
+/*
+ Defaults to "SyntaxDefinition.plist" in the app bundle's "Resources" directory.
+ */
+- (NSString *)syntaxDefinitionFilename;
 
-// Private:
--(void) turnOffWrapping;
+/*
+ Defaults to loading plist from -syntaxDefinitionFilename.
+ */
+- (NSDictionary *)syntaxDefinitionDictionary;
 
--(void) recolorRange: (NSRange) range;
+/*
+ Style attributes dictionary for an NSAttributedString.
+ */
+- (NSDictionary *)defaultTextAttributes;
 
--(void)	colorOneLineComment: (NSString*) startCh inString: (NSMutableAttributedString*) s
-				withColor: (NSColor*) col andMode:(NSString*)attr;
--(void)	colorCommentsFrom: (NSString*) startCh to: (NSString*) endCh inString: (NSMutableAttributedString*) s
-				withColor: (NSColor*) col andMode:(NSString*)attr;
--(void)	colorIdentifier: (NSString*) ident inString: (NSMutableAttributedString*) s
-				withColor: (NSColor*) col andMode:(NSString*)attr charset: (NSCharacterSet*)cset;
--(void)	colorStringsFrom: (NSString*) startCh to: (NSString*) endCh inString: (NSMutableAttributedString*) s
-				withColor: (NSColor*) col andMode:(NSString*)attr andEscapeChar: (NSString*)vStringEscapeCharacter;
--(void)	colorTagFrom: (NSString*) startCh to: (NSString*)endCh inString: (NSMutableAttributedString*) s
-				withColor: (NSColor*) col andMode:(NSString*)attr exceptIfMode: (NSString*)ignoreAttr;
+/*
+ Selected text range when document is opened.
+ */
+- (NSRange)defaultSelectedRange;
 
 @end

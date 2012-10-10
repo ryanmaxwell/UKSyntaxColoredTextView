@@ -48,6 +48,31 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 
 #define	TEXTVIEW		((NSTextView*)[self view])
 
+@interface UKSyntaxColoredTextViewController () {
+    BOOL syntaxColoringBusy;		// Set while recolorRange is busy, so we don't recursively call recolorRange.
+    id reserved;
+    NSRange	affectedCharRange;
+	NSString *replacementString;
+}
+
+
+- (void)turnOffWrapping;
+
+- (void)recolorRange:(NSRange)range;
+
+- (void)colorOneLineComment: (NSString*) startCh inString: (NSMutableAttributedString*) s
+                  withColor: (NSColor*) col andMode:(NSString*)attr;
+- (void)colorCommentsFrom: (NSString*) startCh to: (NSString*) endCh inString: (NSMutableAttributedString*) s
+				withColor: (NSColor*) col andMode:(NSString*)attr;
+- (void)colorIdentifier: (NSString*) ident inString: (NSMutableAttributedString*) s
+              withColor: (NSColor*) col andMode:(NSString*)attr charset: (NSCharacterSet*)cset;
+- (void)colorStringsFrom: (NSString*) startCh to: (NSString*) endCh inString: (NSMutableAttributedString*) s
+               withColor: (NSColor*) col andMode:(NSString*)attr andEscapeChar: (NSString*)vStringEscapeCharacter;
+- (void)colorTagFrom: (NSString*) startCh to: (NSString*)endCh inString: (NSMutableAttributedString*) s
+           withColor: (NSColor*) col andMode:(NSString*)attr exceptIfMode: (NSString*)ignoreAttr;
+
+@end
+
 
 @implementation UKSyntaxColoredTextViewController
 
@@ -80,8 +105,8 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
     self = [super initWithNibName: inNibName bundle: inBundle];
     if( self )
 	{
-		autoSyntaxColoring = YES;
-		maintainIndentation = YES;
+		_autoSyntaxColoring = YES;
+		_maintainIndentation = YES;
 		syntaxColoringBusy = NO;
 	}
     return self;
@@ -124,18 +149,6 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	// Make sure we can use "find" if we're on 10.3:
 	if( [TEXTVIEW respondsToSelector: @selector(setUsesFindPanel:)] )
 		[TEXTVIEW setUsesFindPanel: YES];
-}
-
-
--(void)		setDelegate: (id<UKSyntaxColoredTextViewDelegate>)inDelegate
-{
-	delegate = inDelegate;
-}
-
-
--(id)	delegate
-{
-	return delegate;
 }
 
 
@@ -189,7 +202,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	NSRange						currRange = range;
     
 	// Perform the syntax coloring:
-	if( autoSyntaxColoring && range.length > 0 )
+	if( self.autoSyntaxColoring && range.length > 0 )
 	{
 		NSRange			effectiveRange;
 		NSString*		rangeMode;
@@ -245,9 +258,9 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 //		Perform indentation-maintaining if we're supposed to.
 // -----------------------------------------------------------------------------
 
--(BOOL) textView:(NSTextView *)tv shouldChangeTextInRange:(NSRange)afcr replacementString:(NSString *)rps
+-(BOOL)textView:(NSTextView *)tv shouldChangeTextInRange:(NSRange)afcr replacementString:(NSString *)rps
 {
-	if( maintainIndentation )
+	if( self.maintainIndentation )
 	{
 		affectedCharRange = afcr;
 		if( replacementString )
@@ -264,9 +277,9 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 }
 
 
--(void)	didChangeText	// This actually does what we want to do in textView:shouldChangeTextInRange:
+-(void)didChangeText	// This actually does what we want to do in textView:shouldChangeTextInRange:
 {
-	if( maintainIndentation && replacementString && ([replacementString isEqualToString:@"\n"]
+	if( self.maintainIndentation && replacementString && ([replacementString isEqualToString:@"\n"]
 		|| [replacementString isEqualToString:@"\r"]) )
 	{
 		NSMutableAttributedString*  textStore = [TEXTVIEW textStorage];
@@ -337,27 +350,6 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 
 
 // -----------------------------------------------------------------------------
-//	setAutoSyntaxColoring:
-//		Accessor to turn automatic syntax coloring on or off.
-// -----------------------------------------------------------------------------
-
--(void)		setAutoSyntaxColoring: (BOOL)state
-{
-	autoSyntaxColoring = state;
-}
-
-// -----------------------------------------------------------------------------
-//	autoSyntaxColoring
-//		Accessor for determining whether automatic syntax coloring is on or off.
-// -----------------------------------------------------------------------------
-
--(BOOL)		autoSyntaxColoring
-{
-	return autoSyntaxColoring;
-}
-
-
-// -----------------------------------------------------------------------------
 //	toggleMaintainIndentation:
 //		Action for menu item that toggles indentation maintaining on and off.
 // -----------------------------------------------------------------------------
@@ -367,34 +359,12 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	[self setMaintainIndentation: ![self maintainIndentation]];
 }
 
-
-// -----------------------------------------------------------------------------
-//	setMaintainIndentation:
-//		Accessor to turn indentation maintaining on or off.
-// -----------------------------------------------------------------------------
-
--(void)		setMaintainIndentation: (BOOL)state
-{
-	maintainIndentation = state;
-}
-
-// -----------------------------------------------------------------------------
-//	maintainIndentation
-//		Accessor for determining whether indentation maintaining is on or off.
-// -----------------------------------------------------------------------------
-
--(BOOL)		maintainIndentation
-{
-	return maintainIndentation;
-}
-
-
 // -----------------------------------------------------------------------------
 //	goToLine:
 //		This selects the specified line of the document.
 // -----------------------------------------------------------------------------
 
--(void)	goToLine: (int)lineNum
+-(void)goToLine:(NSInteger)lineNum
 {
 	NSRange			theRange = { 0, 0 };
 	NSString*		vString = [TEXTVIEW string];
@@ -444,7 +414,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 
 #define REALLY_LARGE_NUMBER	1.0e7	// FLT_MAX is too large and causes our rect to be shortened again.
 
--(void) turnOffWrapping
+-(void)turnOffWrapping
 {
 	NSTextContainer*	textContainer = [TEXTVIEW textContainer];
 	NSRect				frame = { { 0, 0 }, { 0, 0 } };
@@ -474,9 +444,9 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 //		This selects the specified character in the document.
 // -----------------------------------------------------------------------------
 
--(void)	goToCharacter: (int)charNum
+-(void)goToCharacter:(NSInteger)charNum
 {
-	[self goToRangeFrom: charNum toChar: charNum +1];
+	[self goToRangeFrom:charNum toChar:charNum + 1];
 }
 
 
@@ -485,7 +455,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 //		Main bottleneck for selecting ranges in our file.
 // -----------------------------------------------------------------------------
 
--(void) goToRangeFrom: (int)startCh toChar: (int)endCh
+-(void)goToRangeFrom:(NSInteger)startCh toChar:(NSInteger)endCh
 {
 	NSRange		theRange = { 0, 0 };
 
@@ -811,8 +781,8 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	@try
 	{
 		syntaxColoringBusy = YES;
-		if( [delegate respondsToSelector: @selector(textViewControllerWillStartSyntaxRecoloring:)] )
-			[delegate textViewControllerWillStartSyntaxRecoloring: self];
+		if( [self.delegate respondsToSelector: @selector(textViewControllerWillStartSyntaxRecoloring:)] )
+			[self.delegate textViewControllerWillStartSyntaxRecoloring: self];
 		
 		// Kludge fix for case where we sometimes exceed text length:ra
 		int diff = [[TEXTVIEW textStorage] length] -(range.location +range.length);
@@ -877,8 +847,8 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 			else if( [vComponentType isEqualToString: @"Keywords"] )
 			{
 				NSArray* vIdents = [vCurrComponent objectForKey: @"Keywords"];
-				if( !vIdents && [delegate respondsToSelector: @selector(userIdentifiersForKeywordModeName)] )
-					vIdents = [delegate userIdentifiersForKeywordComponentName: vComponentName];
+				if( !vIdents && [self.delegate respondsToSelector: @selector(userIdentifiersForKeywordModeName)] )
+					vIdents = [self.delegate userIdentifiersForKeywordComponentName: vComponentName];
 				if( !vIdents )
 					vIdents = [[NSUserDefaults standardUserDefaults] objectForKey: [@"SyntaxColoring:Keywords:" stringByAppendingString: vComponentName]];
 				if( !vIdents && [vComponentName isEqualToString: @"UserIdentifiers"] )
@@ -905,8 +875,8 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	}
 	@finally
 	{
-		if( [delegate respondsToSelector: @selector(textViewControllerDidFinishSyntaxRecoloring:)] )
-			[delegate textViewControllerDidFinishSyntaxRecoloring: self];
+		if( [self.delegate respondsToSelector: @selector(textViewControllerDidFinishSyntaxRecoloring:)] )
+			[self.delegate textViewControllerDidFinishSyntaxRecoloring: self];
 		syntaxColoringBusy = NO;
 		[self textView: TEXTVIEW willChangeSelectionFromCharacterRange: [TEXTVIEW selectedRange]
 					toCharacterRange: [TEXTVIEW selectedRange]];
@@ -960,8 +930,8 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	endChLine = (newSelectedCharRange.location -lastLineStart) +newSelectedCharRange.length;
 	
 	// Let delegate know what to display:
-	if( [delegate respondsToSelector: @selector(selectionInTextViewController:changedToStartCharacter:endCharacter:inLine:startCharacterInDocument:endCharacterInDocument:)] )
-		[delegate selectionInTextViewController: self
+	if( [self.delegate respondsToSelector: @selector(selectionInTextViewController:changedToStartCharacter:endCharacter:inLine:startCharacterInDocument:endCharacterInDocument:)] )
+		[self.delegate selectionInTextViewController: self
 			changedToStartCharacter: startChLine endCharacter: endChLine
 			inLine: lineNo startCharacterInDocument: startCh
 			endCharacterInDocument: endCh];
@@ -987,8 +957,8 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 -(NSString*)	syntaxDefinitionFilename
 {
 	NSString*	syntaxDefFN = nil;
-	if( [delegate respondsToSelector: @selector(syntaxDefinitionFilenameForTextViewController:)] )
-		syntaxDefFN = [delegate syntaxDefinitionFilenameForTextViewController: self];
+	if( [self.delegate respondsToSelector: @selector(syntaxDefinitionFilenameForTextViewController:)] )
+		syntaxDefFN = [self.delegate syntaxDefinitionFilenameForTextViewController: self];
 	
 	if( !syntaxDefFN )
 		syntaxDefFN = @"SyntaxDefinition";
@@ -1013,8 +983,8 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 {
 	NSDictionary*	theDict = nil;
 	
-	if( [delegate respondsToSelector: @selector(syntaxDefinitionDictionaryForTextViewController:)] )
-		theDict = [delegate syntaxDefinitionDictionaryForTextViewController: self];
+	if( [self.delegate respondsToSelector: @selector(syntaxDefinitionDictionaryForTextViewController:)] )
+		theDict = [self.delegate syntaxDefinitionDictionaryForTextViewController: self];
 	
 	if( !theDict )
 	{
@@ -1040,7 +1010,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 
 -(NSDictionary*)	textAttributesForComponentName: (NSString*)attr color: (NSColor*)col
 {
-	NSDictionary*		vLocalStyles = [delegate respondsToSelector:@selector(textAttributesForComponentName:color:)] ? [delegate textAttributesForComponentName: attr color: col] : nil;
+	NSDictionary*		vLocalStyles = [self.delegate respondsToSelector:@selector(textAttributesForComponentName:color:)] ? [self.delegate textAttributesForComponentName: attr color: col] : nil;
 	NSMutableDictionary*vStyles = [[[self defaultTextAttributes] mutableCopy] autorelease];
 	if( vLocalStyles )
 		[vStyles addEntriesFromDictionary: vLocalStyles];
@@ -1069,7 +1039,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 		NSDictionary*		vStyles = [self textAttributesForComponentName: attr color: col];
 		BOOL				vIsEndChar = NO;
 		unichar				vEscChar = '\\';
-		BOOL				vDelegateHandlesProgress = [delegate respondsToSelector: @selector(textViewControllerProgressedWhileSyntaxRecoloring:)];
+		BOOL				vDelegateHandlesProgress = [self.delegate respondsToSelector: @selector(textViewControllerProgressedWhileSyntaxRecoloring:)];
 		
 		if( vStringEscapeCharacter )
 		{
@@ -1084,7 +1054,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 			vIsEndChar = NO;
 			
 			if( vDelegateHandlesProgress )
-				[delegate textViewControllerProgressedWhileSyntaxRecoloring: self];
+				[self.delegate textViewControllerProgressedWhileSyntaxRecoloring: self];
 			
 			// Look for start of string:
 			[vScanner scanUpToString: startCh intoString: nil];
@@ -1101,7 +1071,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 					return;
 				
 				if( vDelegateHandlesProgress )
-					[delegate textViewControllerProgressedWhileSyntaxRecoloring: self];
+					[self.delegate textViewControllerProgressedWhileSyntaxRecoloring: self];
 			}
 			
 			vEndOffs = [vScanner scanLocation];
@@ -1127,7 +1097,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	{
 		NSScanner*			vScanner = [NSScanner scannerWithString: [s string]];
 		NSDictionary*		vStyles = [self textAttributesForComponentName: attr color: col];
-		BOOL				vDelegateHandlesProgress = [delegate respondsToSelector: @selector(textViewControllerProgressedWhileSyntaxRecoloring:)];
+		BOOL				vDelegateHandlesProgress = [self.delegate respondsToSelector: @selector(textViewControllerProgressedWhileSyntaxRecoloring:)];
 		
 		while( ![vScanner isAtEnd] )
 		{
@@ -1150,7 +1120,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 			[s setAttributes: vStyles range: NSMakeRange( vStartOffs, vEndOffs -vStartOffs )];
 			
 			if( vDelegateHandlesProgress )
-				[delegate textViewControllerProgressedWhileSyntaxRecoloring: self];
+				[self.delegate textViewControllerProgressedWhileSyntaxRecoloring: self];
 		}
 	}
 	@catch( ... )
@@ -1172,7 +1142,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	{
 		NSScanner*			vScanner = [NSScanner scannerWithString: [s string]];
 		NSDictionary*		vStyles = [self textAttributesForComponentName: attr color: col];
-		BOOL				vDelegateHandlesProgress = [delegate respondsToSelector: @selector(textViewControllerProgressedWhileSyntaxRecoloring:)];
+		BOOL				vDelegateHandlesProgress = [self.delegate respondsToSelector: @selector(textViewControllerProgressedWhileSyntaxRecoloring:)];
 		
 		while( ![vScanner isAtEnd] )
 		{
@@ -1195,7 +1165,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 			[s setAttributes: vStyles range: NSMakeRange( vStartOffs, vEndOffs -vStartOffs )];
 			
 			if( vDelegateHandlesProgress )
-				[delegate textViewControllerProgressedWhileSyntaxRecoloring: self];
+				[self.delegate textViewControllerProgressedWhileSyntaxRecoloring: self];
 		}
 	}
 	@catch( ... )
@@ -1218,7 +1188,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 		NSScanner*			vScanner = [NSScanner scannerWithString: [s string]];
 		NSDictionary*		vStyles = [self textAttributesForComponentName: attr color: col];
 		NSUInteger			vStartOffs = 0;
-		BOOL				vDelegateHandlesProgress = [delegate respondsToSelector: @selector(textViewControllerProgressedWhileSyntaxRecoloring:)];
+		BOOL				vDelegateHandlesProgress = [self.delegate respondsToSelector: @selector(textViewControllerProgressedWhileSyntaxRecoloring:)];
 		
 		// Skip any leading whitespace chars, somehow NSScanner doesn't do that:
 		if( cset )
@@ -1259,7 +1229,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 			[s setAttributes: vStyles range: NSMakeRange( vStartOffs, [ident length] )];
 				
 			if( vDelegateHandlesProgress )
-				[delegate textViewControllerProgressedWhileSyntaxRecoloring: self];
+				[self.delegate textViewControllerProgressedWhileSyntaxRecoloring: self];
 		}
 	}
 	@catch( ... )
@@ -1281,7 +1251,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	{
 		NSScanner*			vScanner = [NSScanner scannerWithString: [s string]];
 		NSDictionary*		vStyles = [self textAttributesForComponentName: attr color: col];
-		BOOL				vDelegateHandlesProgress = [delegate respondsToSelector: @selector(textViewControllerProgressedWhileSyntaxRecoloring:)];
+		BOOL				vDelegateHandlesProgress = [self.delegate respondsToSelector: @selector(textViewControllerProgressedWhileSyntaxRecoloring:)];
 		
 		while( ![vScanner isAtEnd] )
 		{
@@ -1324,7 +1294,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 			vEndOffs = [vScanner scanLocation];
 			
 			if( vDelegateHandlesProgress )
-				[delegate textViewControllerProgressedWhileSyntaxRecoloring: self];
+				[self.delegate textViewControllerProgressedWhileSyntaxRecoloring: self];
 			
 			// Now mess with the string's styles:
 			[s setAttributes: vStyles range: NSMakeRange( vStartOffs, vEndOffs -vStartOffs )];
