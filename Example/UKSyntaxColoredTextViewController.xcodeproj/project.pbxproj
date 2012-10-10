@@ -17,7 +17,9 @@
 		9476187E162584C000766352 /* NSScanner+SkipUpToCharset.m in Sources */ = {isa = PBXBuildFile; fileRef = 94761879162584C000766352 /* NSScanner+SkipUpToCharset.m */; };
 		9476187F162584C000766352 /* UKSyntaxColoredTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476187C162584C000766352 /* UKSyntaxColoredTextViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		94761883162585B500766352 /* SyntaxColorDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94761881162585B500766352 /* SyntaxColorDefaults.plist */; };
-		94761884162585B500766352 /* SyntaxDefinition.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94761882162585B500766352 /* SyntaxDefinition.plist */; };
+		9476189F1625971E00766352 /* CSS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9476189C1625971E00766352 /* CSS.plist */; };
+		947618A01625971E00766352 /* HTML.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9476189D1625971E00766352 /* HTML.plist */; };
+		947618A11625971E00766352 /* Objective-C.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9476189E1625971E00766352 /* Objective-C.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,7 +44,9 @@
 		9476187B162584C000766352 /* UKSyntaxColoredTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKSyntaxColoredTextViewController.h; sourceTree = "<group>"; };
 		9476187C162584C000766352 /* UKSyntaxColoredTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKSyntaxColoredTextViewController.m; sourceTree = "<group>"; };
 		94761881162585B500766352 /* SyntaxColorDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = SyntaxColorDefaults.plist; path = ../../SyntaxColorDefaults.plist; sourceTree = "<group>"; };
-		94761882162585B500766352 /* SyntaxDefinition.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = SyntaxDefinition.plist; path = ../../SyntaxDefinition.plist; sourceTree = "<group>"; };
+		9476189C1625971E00766352 /* CSS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CSS.plist; sourceTree = "<group>"; };
+		9476189D1625971E00766352 /* HTML.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HTML.plist; sourceTree = "<group>"; };
+		9476189E1625971E00766352 /* Objective-C.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Objective-C.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,8 +112,8 @@
 		9476185B1625848800766352 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9476189B1625971E00766352 /* Syntax Definitions */,
 				94761881162585B500766352 /* SyntaxColorDefaults.plist */,
-				94761882162585B500766352 /* SyntaxDefinition.plist */,
 				9476185C1625848800766352 /* UKSyntaxColoredTextViewController-Info.plist */,
 				9476185D1625848800766352 /* InfoPlist.strings */,
 				947618601625848800766352 /* main.m */,
@@ -132,6 +136,17 @@
 			);
 			name = Classes;
 			path = ../../Classes;
+			sourceTree = "<group>";
+		};
+		9476189B1625971E00766352 /* Syntax Definitions */ = {
+			isa = PBXGroup;
+			children = (
+				9476189C1625971E00766352 /* CSS.plist */,
+				9476189D1625971E00766352 /* HTML.plist */,
+				9476189E1625971E00766352 /* Objective-C.plist */,
+			);
+			name = "Syntax Definitions";
+			path = "../../Syntax Definitions";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,7 +204,9 @@
 				947618651625848800766352 /* Credits.rtf in Resources */,
 				9476186B1625848800766352 /* MainMenu.xib in Resources */,
 				94761883162585B500766352 /* SyntaxColorDefaults.plist in Resources */,
-				94761884162585B500766352 /* SyntaxDefinition.plist in Resources */,
+				9476189F1625971E00766352 /* CSS.plist in Resources */,
+				947618A01625971E00766352 /* HTML.plist in Resources */,
+				947618A11625971E00766352 /* Objective-C.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

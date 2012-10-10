@@ -22,12 +22,12 @@
     \n}";
     
     self.syntaxColorController = [[UKSyntaxColoredTextViewController alloc] init];
-    self.syntaxColorController.view = self.codePreviewTextView;
     self.syntaxColorController.delegate = self;
+    self.syntaxColorController.view = self.codePreviewTextView;
 }
 
 - (IBAction)syntaxMenuChanged:(id)sender {
-    
+    [self.syntaxColorController recolorCompleteFile:self];
 }
 
 #pragma mark - UKSyntaxColoredTextViewDelegate
@@ -38,6 +38,10 @@
 
 - (void)textViewControllerDidFinishSyntaxRecoloring:(UKSyntaxColoredTextViewController *)sender {
     [self.progressIndicator stopAnimation:nil];
+}
+
+- (NSString *)syntaxDefinitionFilenameForTextViewController:(UKSyntaxColoredTextViewController *)sender {
+    return self.syntaxPopUpButton.selectedItem.title;
 }
 
 @end
