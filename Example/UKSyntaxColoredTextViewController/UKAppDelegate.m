@@ -26,4 +26,18 @@
     self.syntaxColorController.delegate = self;
 }
 
+- (IBAction)syntaxMenuChanged:(id)sender {
+    
+}
+
+#pragma mark - UKSyntaxColoredTextViewDelegate
+
+- (void)textViewControllerWillStartSyntaxRecoloring:(UKSyntaxColoredTextViewController *)sender {
+    [self.progressIndicator startAnimation:nil];
+}
+
+- (void)textViewControllerDidFinishSyntaxRecoloring:(UKSyntaxColoredTextViewController *)sender {
+    [self.progressIndicator stopAnimation:nil];
+}
+
 @end

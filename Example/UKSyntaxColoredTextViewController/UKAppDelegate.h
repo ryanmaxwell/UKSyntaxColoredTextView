@@ -10,8 +10,11 @@
 
 @interface UKAppDelegate : NSObject <NSApplicationDelegate>
 
-@property (assign) IBOutlet NSWindow *window;
+@property (assign, nonatomic) IBOutlet NSWindow *window;
+@property (assign, nonatomic) IBOutlet NSProgressIndicator *progressIndicator;
+@property (assign, nonatomic) IBOutlet NSTextView *codePreviewTextView;
+@property (assign, nonatomic) IBOutlet NSPopUpButton *syntaxPopUpButton;
 
-@property (strong, nonatomic) IBOutlet NSTextView *codePreviewTextView;
+- (IBAction)syntaxMenuChanged:(id)sender;
 
 @end
