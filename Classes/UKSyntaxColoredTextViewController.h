@@ -48,7 +48,7 @@
 - (IBAction)unindentSelection:(id)sender;
 - (IBAction)toggleCommentForSelection:(id)sender;
 
-@property (assign, nonatomic) id<UKSyntaxColoredTextViewDelegate>	delegate;
+@property (assign, nonatomic) IBOutlet id<UKSyntaxColoredTextViewDelegate>	delegate;
 
 /* 
  Automatically refresh syntax coloring when text is changed

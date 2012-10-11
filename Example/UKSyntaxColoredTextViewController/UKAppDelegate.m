@@ -7,11 +7,6 @@
 //
 
 #import "UKAppDelegate.h"
-#import "UKSyntaxColoredTextViewController.h"
-
-@interface UKAppDelegate () <UKSyntaxColoredTextViewDelegate>
-@property (strong, nonatomic) UKSyntaxColoredTextViewController *syntaxColorController;
-@end
 
 @implementation UKAppDelegate
 
@@ -20,10 +15,7 @@
     @"- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {\
     \n\treturn YES;\
     \n}";
-    
-    self.syntaxColorController = [[UKSyntaxColoredTextViewController alloc] init];
-    self.syntaxColorController.delegate = self;
-    self.syntaxColorController.view = self.codePreviewTextView;
+    [self.syntaxColorController recolorCompleteFile:self];
 }
 
 - (IBAction)syntaxMenuChanged:(id)sender {

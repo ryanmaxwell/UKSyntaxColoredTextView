@@ -7,11 +7,15 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "UKSyntaxColoredTextViewController.h"
 
-@interface UKAppDelegate : NSObject <NSApplicationDelegate>
+@interface UKAppDelegate : NSObject <NSApplicationDelegate, UKSyntaxColoredTextViewDelegate>
 
 @property (assign, nonatomic) IBOutlet NSWindow *window;
 @property (assign, nonatomic) IBOutlet NSProgressIndicator *progressIndicator;
+
+@property (strong, nonatomic) IBOutlet UKSyntaxColoredTextViewController *syntaxColorController;
+
 @property (assign, nonatomic) IBOutlet NSTextView *codePreviewTextView;
 @property (assign, nonatomic) IBOutlet NSPopUpButton *syntaxPopUpButton;
 
