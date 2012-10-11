@@ -15,7 +15,7 @@
 		9476186B1625848800766352 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 947618691625848800766352 /* MainMenu.xib */; };
 		9476187D162584C000766352 /* NSArray+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 94761877162584C000766352 /* NSArray+Color.m */; };
 		9476187E162584C000766352 /* NSScanner+SkipUpToCharset.m in Sources */ = {isa = PBXBuildFile; fileRef = 94761879162584C000766352 /* NSScanner+SkipUpToCharset.m */; };
-		9476187F162584C000766352 /* UKSyntaxColoredTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476187C162584C000766352 /* UKSyntaxColoredTextViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9476187F162584C000766352 /* UKSyntaxColoredTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9476187C162584C000766352 /* UKSyntaxColoredTextViewController.m */; };
 		94761883162585B500766352 /* SyntaxColorDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 94761881162585B500766352 /* SyntaxColorDefaults.plist */; };
 		9476189F1625971E00766352 /* CSS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9476189C1625971E00766352 /* CSS.plist */; };
 		947618A01625971E00766352 /* HTML.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9476189D1625971E00766352 /* HTML.plist */; };
