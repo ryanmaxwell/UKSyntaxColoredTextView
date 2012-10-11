@@ -30,6 +30,6 @@
 
 @interface NSScanner (UKSkipUpToCharset)
 
--(BOOL) skipUpToCharactersFromSet:(NSCharacterSet*)set;
+- (BOOL)skipUpToCharactersFromSet:(NSCharacterSet *)set;
 
 @end

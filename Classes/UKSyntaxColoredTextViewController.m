@@ -25,26 +25,17 @@
 //	   distribution.
 //
 
-// -----------------------------------------------------------------------------
-//	Headers:
-// -----------------------------------------------------------------------------
-
 #import "UKSyntaxColoredTextViewController.h"
 #import "NSArray+Color.h"
 #import "NSScanner+SkipUpToCharset.h"
-#import "UKHelperMacros.h"
-
-
-// -----------------------------------------------------------------------------
-//	Globals:
-// -----------------------------------------------------------------------------
 
 static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 
-@interface UKSyntaxColoredTextViewController () {
-    BOOL _syntaxColoringBusy;		// Set while recolorRange is busy, so we don't recursively call recolorRange.
-    
-}
+@interface UKSyntaxColoredTextViewController ()
+
+/** Set while recolorRange is busy, so we don't recursively call recolorRange. */
+@property (assign, nonatomic) BOOL syntaxColoringBusy;
+
 @property (assign, nonatomic) NSRange affectedCharRange;
 @property (strong, nonatomic) NSString *replacementString;
 @property (readonly) NSTextView *textView;
@@ -74,7 +65,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
     return (NSTextView *)self.view;
 }
 
-/*
+/**
  * Called by each view on creation to make sure we load the default colors
  * and user-defined identifiers from SyntaxColorDefaults.plist.
  */
@@ -87,7 +78,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	}
 }
 
-/*
+/**
  * Constructor that inits sourceCode member variable as a flag.
  * It's storage for the text until the NIB's been loaded.
  */
@@ -134,12 +125,9 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 		self.textView.usesFindPanel = YES;
 }
 
-
-// -----------------------------------------------------------------------------
-//	setView:
-//		We've just been given a view! Apply initial syntax coloring.
-// -----------------------------------------------------------------------------
-
+/**
+ * We've just been given a view! Apply initial syntax coloring.
+ */
 - (void)setView:(NSView *)theView {
     [super setView:theView];
 	
@@ -147,7 +135,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	[self setUpSyntaxColoring];	// TODO: If someone calls this twice, we should only call part of this twice!
 }
 
-/*
+/**
  * Part of the text was changed. Recolor it.
  */
 - (void)processEditing:(NSNotification *)notification {
@@ -192,7 +180,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 		
 		NSUInteger		x = range.location;
 		
-		/* TODO: If we're in a multi-line comment and we're typing a comment-end
+		/** TODO: If we're in a multi-line comment and we're typing a comment-end
 			character, or we're in a string and we're typing a quote character,
 			this should include the rest of the text up to the next comment/string
 			end character in the recalc. */
@@ -230,12 +218,9 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	}
 }
 
-
-// -----------------------------------------------------------------------------
-//	textView:shouldChangeTextinRange:replacementString:
-//		Perform indentation-maintaining if we're supposed to.
-// -----------------------------------------------------------------------------
-
+/**
+ * Perform indentation-maintaining if we're supposed to.
+ */
 - (BOOL)textView:(NSTextView *)tv shouldChangeTextInRange:(NSRange)afcr replacementString:(NSString *)rps {
 	if( self.maintainIndentation ) {
 		self.affectedCharRange = afcr;
@@ -248,7 +233,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 }
 
 
-/*
+/**
  * This actually does what we want to do in textView:shouldChangeTextInRange:
  */
 - (void)didChangeText {
@@ -309,7 +294,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	}
 }
 
-/*
+/**
  * Action for menu item that toggles automatic syntax coloring on and off.
  */
 - (IBAction)toggleAutoSyntaxColoring:(id)sender {
@@ -317,14 +302,14 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	[self recolorCompleteFile:nil];
 }
 
-/*
+/**
  * Action for menu item that toggles indentation maintaining on and off.
  */
 - (IBAction)toggleMaintainIndentation:(id)sender {
     self.maintainIndentation = !self.maintainIndentation;
 }
 
-/*
+/**
  * This selects the specified line of the document.
  */
 - (void)goToLine:(NSInteger)lineNum {
@@ -370,7 +355,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 
 #define REALLY_LARGE_NUMBER	1.0e7	// FLT_MAX is too large and causes our rect to be shortened again.
 
-/*
+/**
  * Makes the view so wide that text won't wrap anymore.
  */
 - (void)turnOffWrapping {
@@ -396,14 +381,14 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
     self.textView.autoresizingMask = NSViewNotSizable;
 }
 
-/*
+/**
  * This selects the specified character in the document.
  */
 - (void)goToCharacter:(NSInteger)charNum {
 	[self goToRangeFrom:charNum toChar:charNum + 1];
 }
 
-/*
+/**
  * Main bottleneck for selecting ranges in our file.
  */
 - (void)goToRangeFrom:(NSInteger)startCh toChar:(NSInteger)endCh {
@@ -419,7 +404,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
     self.textView.selectedRange = theRange;
 }
 
-/*
+/**
  * Main bottleneck for our (very primitive and inefficient) undo implementation. 
  * This takes a copy of the previous state of the *entire text* and restores it.
  */
@@ -429,7 +414,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	[self.undoManager enableUndoRegistration];
 }
 
-/*
+/**
  * Indent the selected lines by one more level (i.e. one more tab).
  */
 - (IBAction)indentSelection:(id)sender {
@@ -466,7 +451,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	[self.undoManager endUndoGrouping];
 }
 
-/*
+/**
  * Un-indent the selected lines by one level (i.e. remove one tab from each line's start).
  */
 - (IBAction)unindentSelection:(id)sender {
@@ -537,7 +522,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	[self.undoManager endUndoGrouping];
 }
 
-/*
+/**
  * Add a comment to the start of this line/remove an existing comment.
  */
 - (IBAction)toggleCommentForSelection:(id)sender {
@@ -646,7 +631,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	
 }
 
-/*
+/**
  * Make sure check marks of the "Toggle auto syntax coloring" and "Maintain indentation" menu items are set up properly.
  */
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
@@ -663,7 +648,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 		return [super validateMenuItem: menuItem];
 }
 
-/*
+/**
  * IBAction to do a complete recolor of the whole friggin' document.
  * This is called once after the document's been loaded and leaves some
  * custom styles in the document which are used by recolorRange to properly
@@ -674,7 +659,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	[self recolorRange: range];
 }
 
-/*
+/**
  * Try to apply syntax coloring to the text in our text view. 
  * This overwrites any styles the text may have had before.
  * This function guarantees that it'll preserve the selection.
@@ -689,7 +674,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
  * multi-line comment etc. or it'll lose color.
  */
 - (void)recolorRange:(NSRange)range {
-	if( _syntaxColoringBusy )	// Prevent endless loop when recoloring's replacement of text causes processEditing to fire again.
+	if( self.syntaxColoringBusy )	// Prevent endless loop when recoloring's replacement of text causes processEditing to fire again.
 		return;
 	
 	if( self.textView == nil || range.length == 0 )	// Don't like doing useless stuff.
@@ -697,7 +682,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	
 	@try
 	{
-		_syntaxColoringBusy = YES;
+		self.syntaxColoringBusy = YES;
 		if( [self.delegate respondsToSelector: @selector(textViewControllerWillStartSyntaxRecoloring:)] )
 			[self.delegate textViewControllerWillStartSyntaxRecoloring: self];
 		
@@ -793,13 +778,13 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	{
 		if( [self.delegate respondsToSelector: @selector(textViewControllerDidFinishSyntaxRecoloring:)] )
 			[self.delegate textViewControllerDidFinishSyntaxRecoloring: self];
-		_syntaxColoringBusy = NO;
+		self.syntaxColoringBusy = NO;
 		[self textView:self.textView willChangeSelectionFromCharacterRange:self.textView.selectedRange
       toCharacterRange:self.textView.selectedRange];
 	}
 }
 
-/*
+/**
  * Delegate method called when our selection changes.
  * Updates our status display to indicate which characters are selected.
  */
@@ -851,7 +836,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	return newSelectedCharRange;
 }
 
-/*
+/**
  * Like nibName, this should return the name of the syntax definition file to use. 
  * Advanced users may use this to allow different coloring to take place depending on the file extension 
  * by returning different file names here.
@@ -871,7 +856,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	return syntaxDefFN;
 }
 
-/*
+/**
  * This returns the syntax definition dictionary to use, which indicates what ranges of text to colorize. 
  * Advanced users may use this to allow different coloring to take place depending on the file extension by
  * returning different dictionaries here.
@@ -896,7 +881,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	return theDict;
 }
 
-/*
+/**
  * Return the styles to use for the given mode/color. This calls upon the delegate to provide the styles, 
  * or if not, just set the color. This is also responsible for setting the TD_SYNTAX_COLORING_MODE_ATTR attribute
  * so we can extend a range for partial recoloring to color the full block comment or whatever which is being 
@@ -916,7 +901,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	return vStyles;
 }
 
-/*
+/**
  * Apply syntax coloring to all strings. 
  * This is basically the same code as used for multi-line comments, except that it ignores the end
  * character if it is preceded by a backslash.
@@ -974,7 +959,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 }
 
 
-/*
+/**
  * Colorize block-comments in the text view.
  */
 - (void)colorCommentsFrom:(NSString *)startCh to:(NSString *)endCh inString:(NSMutableAttributedString *)s
@@ -997,7 +982,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 			// Look for associated end-of-comment marker:
 			[vScanner scanUpToString: endCh intoString: nil];
 			if( ![vScanner scanString: endCh intoString: nil] )
-				/*return*/;  // Don't exit. If user forgot trailing marker, indicate this by "bleeding" until end of string.
+				/**return*/;  // Don't exit. If user forgot trailing marker, indicate this by "bleeding" until end of string.
 			vEndOffs = vScanner.scanLocation;
 			
 			// Now mess with the string's styles:
@@ -1012,7 +997,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	}
 }
 
-/*
+/**
  * Colorize one-line-comments in the text view.
  */
 - (void)colorOneLineComment:(NSString *)startCh inString:(NSMutableAttributedString *)s
@@ -1051,7 +1036,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	}
 }
 
-/*
+/**
  * Colorize keywords in the text view.
  */
 - (void)colorIdentifier:(NSString *)ident inString:(NSMutableAttributedString *)s
@@ -1111,7 +1096,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	}
 }
 
-/*
+/**
  * Colorize HTML tags or similar constructs in the text view.
  */
 - (void)colorTagFrom:(NSString *)startCh to:(NSString *)endCh inString:(NSMutableAttributedString *)s
@@ -1175,14 +1160,14 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	}
 }
 
-/*
+/**
  * Return the text attributes to use for the text in our text view.
  */
 - (NSDictionary *)defaultTextAttributes {
 	return @{NSFontAttributeName: [NSFont userFixedPitchFontOfSize: 10.0]};
 }
 
-/*
+/**
  * Put selection at top like Project Builder has it, so user sees it.
  * You can also override this and save/restore the selection for each document.
  */

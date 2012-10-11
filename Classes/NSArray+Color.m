@@ -25,26 +25,11 @@
 //	   distribution.
 //
 
-// -----------------------------------------------------------------------------
-//  Headers:
-// -----------------------------------------------------------------------------
-
 #import "NSArray+Color.h"
-
 
 @implementation NSArray (UKColor)
 
-// -----------------------------------------------------------------------------
-//	arrayWithColor:
-//		Converts the color to an RGB color if needed, and then creates an array
-//		with its red, green, blue and alpha components (in that order).
-//
-//  REVISIONS:
-//		2004-05-18  witness documented.
-// -----------------------------------------------------------------------------
-
-+(NSArray*)		arrayWithColor: (NSColor*) col
-{
++(NSArray *)arrayWithColor:(NSColor *)col {
 	CGFloat			fRed = 0, fGreen = 0, fBlue = 0, fAlpha = 1.0;
 	
 	col = [col colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
@@ -53,30 +38,18 @@
 	return [self arrayWithObjects:@(fRed), @(fGreen), @(fBlue), @(fAlpha), nil];
 }
 
-
-// -----------------------------------------------------------------------------
-//	colorValue:
-//		Converts an NSArray with three (or four) NSValues into an RGB Color
-//		(plus alpha, if specified).
-//
-//  REVISIONS:
-//		2004-05-18  witness documented.
-// -----------------------------------------------------------------------------
-
--(NSColor*)		colorValue
-{
-	float			fRed = 0, fGreen = 0, fBlue = 0, fAlpha = 1.0;
+- (NSColor *)colorValue {
+	CGFloat fRed = 0, fGreen = 0, fBlue = 0, fAlpha = 1.0;
 	
-	if( [self count] >= 3 )
-	{
+	if( [self count] >= 3 ) {
 		fRed = [self[0] floatValue];
 		fGreen = [self[1] floatValue];
 		fBlue = [self[2] floatValue];
 	}
-	if( [self count] > 3 )	// Have alpha info?
+	if (self.count > 3)	// Have alpha info?
 		fAlpha = [self[3] floatValue];
 	
-	return [NSColor colorWithCalibratedRed: fRed green: fGreen blue: fBlue alpha: fAlpha];
+	return [NSColor colorWithCalibratedRed:fRed green:fGreen blue:fBlue alpha:fAlpha];
 }
 
 @end

@@ -40,7 +40,6 @@
 		94761877162584C000766352 /* NSArray+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Color.m"; sourceTree = "<group>"; };
 		94761878162584C000766352 /* NSScanner+SkipUpToCharset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSScanner+SkipUpToCharset.h"; sourceTree = "<group>"; };
 		94761879162584C000766352 /* NSScanner+SkipUpToCharset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSScanner+SkipUpToCharset.m"; sourceTree = "<group>"; };
-		9476187A162584C000766352 /* UKHelperMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKHelperMacros.h; sourceTree = "<group>"; };
 		9476187B162584C000766352 /* UKSyntaxColoredTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKSyntaxColoredTextViewController.h; sourceTree = "<group>"; };
 		9476187C162584C000766352 /* UKSyntaxColoredTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKSyntaxColoredTextViewController.m; sourceTree = "<group>"; };
 		94761881162585B500766352 /* SyntaxColorDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = SyntaxColorDefaults.plist; path = ../../SyntaxColorDefaults.plist; sourceTree = "<group>"; };
@@ -130,7 +129,6 @@
 				94761877162584C000766352 /* NSArray+Color.m */,
 				94761878162584C000766352 /* NSScanner+SkipUpToCharset.h */,
 				94761879162584C000766352 /* NSScanner+SkipUpToCharset.m */,
-				9476187A162584C000766352 /* UKHelperMacros.h */,
 				9476187B162584C000766352 /* UKSyntaxColoredTextViewController.h */,
 				9476187C162584C000766352 /* UKSyntaxColoredTextViewController.m */,
 			);

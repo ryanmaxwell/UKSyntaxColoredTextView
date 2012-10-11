@@ -25,28 +25,30 @@
 //	   distribution.
 //
 
-// -----------------------------------------------------------------------------
-//	Headers:
-// -----------------------------------------------------------------------------
-
 #import <Cocoa/Cocoa.h>
 
-
-// -----------------------------------------------------------------------------
-//	Category:
-// -----------------------------------------------------------------------------
-
-// Methods to treat an NSArray with three/four elements as an RGB/RGBA color.
-//  Useful for storing colors in NSUserDefaults and other Property Lists.
-//  Note that this isn't quite the same as storing an NSData of the color, as
-//  some colors can't be correctly represented in RGB, but this makes for more
-//  readable property lists than NSData.
-// If we wanted to get fancy, we could use an NSDictionary instead and save
-//	different color types in different ways.
-
+/**
+ * Methods to treat an NSArray with three/four elements as an RGB/RGBA color.
+ * 
+ * Useful for storing colors in NSUserDefaults and other Property Lists.
+ * Note that this isn't quite the same as storing an NSData of the color, as
+ * some colors can't be correctly represented in RGB, but this makes for more
+ * readable property lists than NSData.
+ * 
+ * If we wanted to get fancy, we could use an NSDictionary instead and save
+ * different color types in different ways.
+ */
 @interface NSArray (UKColor)
 
-+(NSArray*)		arrayWithColor: (NSColor*) col;
--(NSColor*)		colorValue;
+/**
+ * Converts the color to an RGB color if needed, and then creates an array
+ * with its red, green, blue and alpha components (in that order).
+ */
++ (NSArray *)arrayWithColor:(NSColor *)col;
+
+/**
+ * Converts an NSArray with three (or four) NSValues into an RGB Color (plus alpha, if specified).
+ */
+- (NSColor *)colorValue;
 
 @end
