@@ -708,7 +708,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 		
 		// Loop over all available components:
 		NSDictionary*				vCurrComponent = nil;
-		NSUserDefaults*				vPrefs = [NSUserDefaults standardUserDefaults];
+		NSUserDefaults*				vPrefs = NSUserDefaults.standardUserDefaults;
 
 		while( (vCurrComponent = [vComponentsEnny nextObject]) )
 		{
@@ -751,9 +751,9 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 				if( !vIdents && [self.delegate respondsToSelector: @selector(userIdentifiersForKeywordModeName)] )
 					vIdents = [self.delegate userIdentifiersForKeywordComponentName: vComponentName];
 				if( !vIdents )
-					vIdents = [[NSUserDefaults standardUserDefaults] objectForKey: [@"SyntaxColoring:Keywords:" stringByAppendingString: vComponentName]];
+					vIdents = [NSUserDefaults.standardUserDefaults objectForKey: [@"SyntaxColoring:Keywords:" stringByAppendingString: vComponentName]];
 				if( !vIdents && [vComponentName isEqualToString: @"UserIdentifiers"] )
-					vIdents = [[NSUserDefaults standardUserDefaults] objectForKey: TD_USER_DEFINED_IDENTIFIERS];
+					vIdents = [NSUserDefaults.standardUserDefaults objectForKey: TD_USER_DEFINED_IDENTIFIERS];
 				if( vIdents )
 				{
 					NSCharacterSet*		vIdentCharset = nil;
@@ -874,7 +874,7 @@ static BOOL			sSyntaxColoredTextDocPrefsInited = NO;
 	{
 		NSBundle*	theBundle = [self nibBundle];
 		if( !theBundle )
-			theBundle = [NSBundle bundleForClass: [self class]];	// Usually the main bundle, but be nice to plugins.
+			theBundle = [NSBundle bundleForClass:self.class];	// Usually the main bundle, but be nice to plugins.
 		theDict = [NSDictionary dictionaryWithContentsOfFile: [theBundle pathForResource: [self syntaxDefinitionFilename] ofType: @"plist"]];
 	}
 	
