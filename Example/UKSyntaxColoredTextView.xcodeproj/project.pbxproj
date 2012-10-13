@@ -1,0 +1,335 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		945221C21628FF50009C2FCF /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 945221C01628FF50009C2FCF /* MainMenu.xib */; };
+		945221F316290039009C2FCF /* NSArray+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 945221EE16290039009C2FCF /* NSArray+Color.m */; };
+		945221F416290039009C2FCF /* NSScanner+SkipUpToCharset.m in Sources */ = {isa = PBXBuildFile; fileRef = 945221F016290039009C2FCF /* NSScanner+SkipUpToCharset.m */; };
+		945221F516290039009C2FCF /* UKSyntaxColoredTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945221F216290039009C2FCF /* UKSyntaxColoredTextViewController.m */; };
+		945221FA16290182009C2FCF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 945221BA1628FF22009C2FCF /* main.m */; };
+		9452220C1629023D009C2FCF /* CSS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 945222071629023D009C2FCF /* CSS.plist */; };
+		9452220D1629023D009C2FCF /* HTML.plist in Resources */ = {isa = PBXBuildFile; fileRef = 945222081629023D009C2FCF /* HTML.plist */; };
+		9452220E1629023D009C2FCF /* Objective-C.plist in Resources */ = {isa = PBXBuildFile; fileRef = 945222091629023D009C2FCF /* Objective-C.plist */; };
+		9452220F1629023D009C2FCF /* SyntaxColorDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9452220A1629023D009C2FCF /* SyntaxColorDefaults.plist */; };
+		945222101629023D009C2FCF /* SyntaxDefinition.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9452220B1629023D009C2FCF /* SyntaxDefinition.plist */; };
+		945222111629027B009C2FCF /* UKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 945221BF1628FF39009C2FCF /* UKAppDelegate.m */; };
+		94522217162902A7009C2FCF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 947618541625848800766352 /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		945221BA1628FF22009C2FCF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = UKSyntaxColoredTextView/main.m; sourceTree = SOURCE_ROOT; };
+		945221BB1628FF22009C2FCF /* UKSyntaxColoredTextView-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "UKSyntaxColoredTextView-Info.plist"; path = "UKSyntaxColoredTextView/UKSyntaxColoredTextView-Info.plist"; sourceTree = SOURCE_ROOT; };
+		945221BC1628FF22009C2FCF /* UKSyntaxColoredTextView-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UKSyntaxColoredTextView-Prefix.pch"; path = "UKSyntaxColoredTextView/UKSyntaxColoredTextView-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		945221BE1628FF39009C2FCF /* UKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UKAppDelegate.h; path = UKSyntaxColoredTextView/UKAppDelegate.h; sourceTree = SOURCE_ROOT; };
+		945221BF1628FF39009C2FCF /* UKAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = UKAppDelegate.m; path = UKSyntaxColoredTextView/UKAppDelegate.m; sourceTree = SOURCE_ROOT; };
+		945221C11628FF50009C2FCF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = UKSyntaxColoredTextView/en.lproj/MainMenu.xib; sourceTree = SOURCE_ROOT; };
+		945221ED16290039009C2FCF /* NSArray+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Color.h"; sourceTree = "<group>"; };
+		945221EE16290039009C2FCF /* NSArray+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Color.m"; sourceTree = "<group>"; };
+		945221EF16290039009C2FCF /* NSScanner+SkipUpToCharset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSScanner+SkipUpToCharset.h"; sourceTree = "<group>"; };
+		945221F016290039009C2FCF /* NSScanner+SkipUpToCharset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSScanner+SkipUpToCharset.m"; sourceTree = "<group>"; };
+		945221F116290039009C2FCF /* UKSyntaxColoredTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKSyntaxColoredTextViewController.h; sourceTree = "<group>"; };
+		945221F216290039009C2FCF /* UKSyntaxColoredTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKSyntaxColoredTextViewController.m; sourceTree = "<group>"; };
+		945222071629023D009C2FCF /* CSS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CSS.plist; sourceTree = "<group>"; };
+		945222081629023D009C2FCF /* HTML.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HTML.plist; sourceTree = "<group>"; };
+		945222091629023D009C2FCF /* Objective-C.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Objective-C.plist"; sourceTree = "<group>"; };
+		9452220A1629023D009C2FCF /* SyntaxColorDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = SyntaxColorDefaults.plist; path = ../SyntaxColorDefaults.plist; sourceTree = "<group>"; };
+		9452220B1629023D009C2FCF /* SyntaxDefinition.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = SyntaxDefinition.plist; path = ../SyntaxDefinition.plist; sourceTree = "<group>"; };
+		947618501625848800766352 /* UKSyntaxColoredTextView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UKSyntaxColoredTextView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		947618541625848800766352 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		947618571625848800766352 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		947618591625848800766352 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9476184D1625848800766352 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94522217162902A7009C2FCF /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		945221EC16290039009C2FCF /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				945221ED16290039009C2FCF /* NSArray+Color.h */,
+				945221EE16290039009C2FCF /* NSArray+Color.m */,
+				945221EF16290039009C2FCF /* NSScanner+SkipUpToCharset.h */,
+				945221F016290039009C2FCF /* NSScanner+SkipUpToCharset.m */,
+				945221F116290039009C2FCF /* UKSyntaxColoredTextViewController.h */,
+				945221F216290039009C2FCF /* UKSyntaxColoredTextViewController.m */,
+			);
+			name = Classes;
+			path = ../Classes;
+			sourceTree = "<group>";
+		};
+		945222061629023C009C2FCF /* Syntax Definitions */ = {
+			isa = PBXGroup;
+			children = (
+				945222071629023D009C2FCF /* CSS.plist */,
+				945222081629023D009C2FCF /* HTML.plist */,
+				945222091629023D009C2FCF /* Objective-C.plist */,
+			);
+			name = "Syntax Definitions";
+			path = "../Syntax Definitions";
+			sourceTree = "<group>";
+		};
+		947618451625848800766352 = {
+			isa = PBXGroup;
+			children = (
+				945221EC16290039009C2FCF /* Classes */,
+				945222061629023C009C2FCF /* Syntax Definitions */,
+				9452220A1629023D009C2FCF /* SyntaxColorDefaults.plist */,
+				9452220B1629023D009C2FCF /* SyntaxDefinition.plist */,
+				9476185A1625848800766352 /* UKSyntaxColoredTextViewController */,
+				947618531625848800766352 /* Frameworks */,
+				947618511625848800766352 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		947618511625848800766352 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				947618501625848800766352 /* UKSyntaxColoredTextView.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		947618531625848800766352 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				947618541625848800766352 /* Cocoa.framework */,
+				947618561625848800766352 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		947618561625848800766352 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				947618571625848800766352 /* AppKit.framework */,
+				947618591625848800766352 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		9476185A1625848800766352 /* UKSyntaxColoredTextViewController */ = {
+			isa = PBXGroup;
+			children = (
+				945221BE1628FF39009C2FCF /* UKAppDelegate.h */,
+				945221BF1628FF39009C2FCF /* UKAppDelegate.m */,
+				945221C01628FF50009C2FCF /* MainMenu.xib */,
+				9476185B1625848800766352 /* Supporting Files */,
+			);
+			path = UKSyntaxColoredTextViewController;
+			sourceTree = "<group>";
+		};
+		9476185B1625848800766352 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				945221BA1628FF22009C2FCF /* main.m */,
+				945221BB1628FF22009C2FCF /* UKSyntaxColoredTextView-Info.plist */,
+				945221BC1628FF22009C2FCF /* UKSyntaxColoredTextView-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9476184F1625848800766352 /* UKSyntaxColoredTextView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9476186E1625848800766352 /* Build configuration list for PBXNativeTarget "UKSyntaxColoredTextView" */;
+			buildPhases = (
+				9476184C1625848800766352 /* Sources */,
+				9476184D1625848800766352 /* Frameworks */,
+				9476184E1625848800766352 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = UKSyntaxColoredTextView;
+			productName = UKSyntaxColoredTextViewController;
+			productReference = 947618501625848800766352 /* UKSyntaxColoredTextView.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		947618471625848800766352 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = UK;
+				LastUpgradeCheck = 0450;
+			};
+			buildConfigurationList = 9476184A1625848800766352 /* Build configuration list for PBXProject "UKSyntaxColoredTextView" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 947618451625848800766352;
+			productRefGroup = 947618511625848800766352 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9476184F1625848800766352 /* UKSyntaxColoredTextView */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9476184E1625848800766352 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				945221C21628FF50009C2FCF /* MainMenu.xib in Resources */,
+				9452220C1629023D009C2FCF /* CSS.plist in Resources */,
+				9452220D1629023D009C2FCF /* HTML.plist in Resources */,
+				9452220E1629023D009C2FCF /* Objective-C.plist in Resources */,
+				9452220F1629023D009C2FCF /* SyntaxColorDefaults.plist in Resources */,
+				945222101629023D009C2FCF /* SyntaxDefinition.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9476184C1625848800766352 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				945222111629027B009C2FCF /* UKAppDelegate.m in Sources */,
+				945221FA16290182009C2FCF /* main.m in Sources */,
+				945221F316290039009C2FCF /* NSArray+Color.m in Sources */,
+				945221F416290039009C2FCF /* NSScanner+SkipUpToCharset.m in Sources */,
+				945221F516290039009C2FCF /* UKSyntaxColoredTextViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		945221C01628FF50009C2FCF /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				945221C11628FF50009C2FCF /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9476186C1625848800766352 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		9476186D1625848800766352 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		9476186F1625848800766352 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "UKSyntaxColoredTextView/UKSyntaxColoredTextView-Prefix.pch";
+				INFOPLIST_FILE = "UKSyntaxColoredTextView/UKSyntaxColoredTextView-Info.plist";
+				PRODUCT_NAME = UKSyntaxColoredTextView;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		947618701625848800766352 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "UKSyntaxColoredTextView/UKSyntaxColoredTextView-Prefix.pch";
+				INFOPLIST_FILE = "UKSyntaxColoredTextView/UKSyntaxColoredTextView-Info.plist";
+				PRODUCT_NAME = UKSyntaxColoredTextView;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9476184A1625848800766352 /* Build configuration list for PBXProject "UKSyntaxColoredTextView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9476186C1625848800766352 /* Debug */,
+				9476186D1625848800766352 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9476186E1625848800766352 /* Build configuration list for PBXNativeTarget "UKSyntaxColoredTextView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9476186F1625848800766352 /* Debug */,
+				947618701625848800766352 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 947618471625848800766352 /* Project object */;
+}

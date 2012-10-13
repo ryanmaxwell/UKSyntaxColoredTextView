@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9476184F1625848800766352"
-               BuildableName = "UKSyntaxColoredTextViewController.app"
-               BlueprintName = "UKSyntaxColoredTextViewController"
-               ReferencedContainer = "container:UKSyntaxColoredTextViewController.xcodeproj">
+               BuildableName = "UKSyntaxColoredTextView.app"
+               BlueprintName = "UKSyntaxColoredTextView"
+               ReferencedContainer = "container:UKSyntaxColoredTextView.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9476184F1625848800766352"
-            BuildableName = "UKSyntaxColoredTextViewController.app"
-            BlueprintName = "UKSyntaxColoredTextViewController"
-            ReferencedContainer = "container:UKSyntaxColoredTextViewController.xcodeproj">
+            BuildableName = "UKSyntaxColoredTextView.app"
+            BlueprintName = "UKSyntaxColoredTextView"
+            ReferencedContainer = "container:UKSyntaxColoredTextView.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -52,9 +52,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9476184F1625848800766352"
-            BuildableName = "UKSyntaxColoredTextViewController.app"
-            BlueprintName = "UKSyntaxColoredTextViewController"
-            ReferencedContainer = "container:UKSyntaxColoredTextViewController.xcodeproj">
+            BuildableName = "UKSyntaxColoredTextView.app"
+            BlueprintName = "UKSyntaxColoredTextView"
+            ReferencedContainer = "container:UKSyntaxColoredTextView.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -70,9 +70,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9476184F1625848800766352"
-            BuildableName = "UKSyntaxColoredTextViewController.app"
-            BlueprintName = "UKSyntaxColoredTextViewController"
-            ReferencedContainer = "container:UKSyntaxColoredTextViewController.xcodeproj">
+            BuildableName = "UKSyntaxColoredTextView.app"
+            BlueprintName = "UKSyntaxColoredTextView"
+            ReferencedContainer = "container:UKSyntaxColoredTextView.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

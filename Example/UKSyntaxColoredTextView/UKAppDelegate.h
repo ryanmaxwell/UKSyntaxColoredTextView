@@ -1,6 +1,6 @@
 //
 //  UKAppDelegate.h
-//  UKSyntaxColoredTextViewController
+//  UKSyntaxColoredTextView
 //
 //  Created by Ryan Maxwell on 10/10/12.
 //

@@ -1,12 +1,12 @@
-#UKSyntaxColoredTextDocument
+#UKSyntaxColoredTextView
 
-This is a view controller class that implements a text editor that performs "live" syntax coloring in an NSTextView, and generally tries to be helpful to editing structured text documents for programming.
+This is a fork of uliwitness/UKSyntaxColoredTextDocument. The main differences are:
 
-
-##Requirements
-
-You *must* check out UliKit into a folder next to this one, or you will get missing files.
-
+* Requires ARC
+* Supports Cocoapods
+* Supports Appledoc generation
+* Drops support for legacy OS X Version (requires 10.7+)
+* Removes NSDocument subclass and minimises code dependencies
 
 ##Features
 
@@ -17,6 +17,10 @@ You *must* check out UliKit into a folder next to this one, or you will get miss
 * Built-in support for "Go To Line" and "Go To Character" to select parts of the text, also useful for highlighting lines when reporting coding errors.
 * Controller classes for editing preferences included.
 * Maintains indentation (if desired).
+
+##UKSyntaxColoredTextViewController
+
+This is a view controller class that implements a text editor that performs "live" syntax coloring in an NSTextView, and generally tries to be helpful to editing structured text documents for programming.
 
 
 ##Adapting to Other Programming Languages
@@ -84,29 +88,3 @@ freely, subject to the following restrictions:
 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
 
 3. This notice may not be removed or altered from any source distribution.
-
-
-##Revisions
-0.1	-	First public release.
-
-0.1.1 - Fixed a tiny bug that could cause a crash when the last character in the document was deleted. Removed a couple of outdated files and added some missing identifiers to the example SyntaxDefinition.plist.
-
-0.1.5 - Added option to maintain indentation of previous line for new lines when a return key is typed, added accessors for auto syntax coloring and maintain indentation flags.
-
-0.2.0 - Added "Identifiers2" list, "comments2", coloring of "tags", -syntaxDictionary method, support for specifying the escape character for coloring strings, HTML sample syntax definition, leaving out the charset for identifiers, icons indicating selection type, UKSCTDColorWellPrefsController, new-style syntax definitions and UKSCTDUserIdentifiersPrefsController, and UKMultiSyntaxColoredTextDocument.
-
-0.3.0 - Fixed exceptions when undoing, hopefully finally fixed the bug where editing an empty document would occasionally crash.
-
-0.4.0 - Fixed indent/unindent to not indent the next line after a full-line (triple click) selection and made it support undo. Made "new" ObjC coloring scheme support user identifiers, added more identifiers. Multi syntax colored document now tries to pick the right syntax coloring definition file based on extension. Misc. stability fixes.
-
-0.5.0 - Various improvements to undo, comment/uncomment menu item, actual syntax coloring code now extracted into a view controller. Removed support for old-style syntax definitions. Prettier top bar containing status messages.
-
-
-##Contact Information
-
-You can find the newest version of UKSyntaxColoredTextDocument at
-
-http://github.com/uliwitness/UKSyntaxColoredTextDocument
-
-E-Mail: witness_dot_of_dot_teachtext_at_gmx_dot_net
-
