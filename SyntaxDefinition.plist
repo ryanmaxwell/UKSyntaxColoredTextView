@@ -97,6 +97,7 @@
 				<string>NS_VALUERETURN</string>
 				<string>Class</string>
 				<string>SEL</string>
+				<string>NULL</string>
 			</array>
 			<key>Name</key>
 			<string>Identifiers</string>
